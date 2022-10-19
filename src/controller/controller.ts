@@ -1,14 +1,20 @@
 //userControllers
-import { postUserController } from "./user/postUserController";
-import { patchUserController } from "./user/patchUniqueUserController";
+import { postUser } from "./user/postUserController";
+import { patchUser } from "./user/patchUniqueUserController";
+import { getUniqueUser } from "./user/getUniqueUserController";
+import { getAllUsers } from "./user/getAllUserController";
+import { deleteUniqueUser } from "./user/deleteUniqueUserController";
 
 //authControllers
 import { loginController } from "./auth/postLoginController";
 import { logoutController } from "./auth/postLogoutController";
 
 export const userControllers = {
-	postUserController,
-	patchUserController,
+	postUser,
+	patchUser,
+	getUniqueUser,
+	getAllUsers,
+	deleteUniqueUser,
 };
 
 export const authControllers = {

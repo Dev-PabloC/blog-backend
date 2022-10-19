@@ -2,7 +2,7 @@ import { prisma } from "../../database/prismaconnection";
 import { genSalt, hash } from "bcrypt";
 import { Request, Response } from "express";
 
-export const postUserController = async (req: Request, res: Response) => {
+export const postUser = async (req: Request, res: Response) => {
 	try {
 		let { username, email, password } = req.body;
 

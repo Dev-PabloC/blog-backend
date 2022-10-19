@@ -3,7 +3,7 @@ import { prisma } from "../../database/prismaconnection";
 import { Request, Response } from "express";
 import jwt from "jsonwebtoken";
 
-export const patchUserController = async (req: Request, res: Response) => {
+export const patchUser = async (req: Request, res: Response) => {
 	try {
 		const { name } = req.params;
 		const props = req.body;
