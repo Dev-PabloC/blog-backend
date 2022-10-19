@@ -1,0 +1,39 @@
+{
+	"name": "apollo",
+	"author": {
+		"name": "Dev-PabloC",
+		"email": "pablo.dev.carvalho@gmail.com"
+	},
+	"version": "1.0.0",
+	"main": "./src/index.ts",
+	"license": "MIT",
+	"dependencies": {
+		"@prisma/client": "^4.5.0",
+		"bcrypt": "^5.1.0",
+		"body-parser": "^1.20.1",
+		"cors": "^2.8.5",
+		"dotenv": "^16.0.3",
+		"express": "^4.18.2",
+		"helmet": "^6.0.0",
+		"jsonwebtoken": "^8.5.1",
+		"mongoose": "^6.6.5",
+		"morgan": "^1.10.0"
+	},
+	"devDependencies": {
+		"@types/bcrypt": "^5.0.0",
+		"@types/body-parser": "^1.19.2",
+		"@types/cors": "^2.8.12",
+		"@types/express": "^4.17.14",
+		"@types/helmet": "^4.0.0",
+		"@types/jsonwebtoken": "^8.5.9",
+		"@types/morgan": "^1.9.3",
+		"nodemon": "^2.0.20",
+		"prisma": "^4.5.0",
+		"typescript": "^4.8.4"
+	},
+	"scripts": {
+		"start:dev": "nodemon ./src/main.ts",
+		"build": "tsc",
+		"start": "node dist/src/main.js"
+	}
+}
