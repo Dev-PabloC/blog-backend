@@ -20,11 +20,9 @@ export const postUser = async (req: Request, res: Response) => {
 			data: UserData,
 		});
 
-		res.status(201);
-		res.send();
-		res.redirect("/login");
+		res.sendStatus(201);
+		
 	} catch (err) {
-		res.status(500);
-		res.send({ error: err });
+		res.sendStatus(500);
 	}
 };

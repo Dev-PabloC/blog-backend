@@ -15,14 +15,13 @@ export const getAllUsers = async (req: Request, res: Response) => {
 		});
 
 		if (result) {
-			res.status(200);
 			res.json(result);
+			res.sendStatus(200);
 		}
 
-		res.status(500);
-		res.send({ error: "No data found" });
+		throw new Error("Data not found");
 	} catch (err) {
-		res.status(500);
-		res.send({ error: err });
+		res.sendStatus(500);
+		throw new Error("Server error");
 	}
 };

@@ -13,8 +13,8 @@ export const patchUser = async (req: Request, res: Response) => {
 		const { username }: any = jwt.verify(token, String(process.env.JWTKEY));
 
 		if (!props) {
-			res.status(500);
-			res.send("No request body");
+			res.sendStatus(500);
+			throw new Error("No request body");
 		}
 
 		if (props.password) {
@@ -29,8 +29,7 @@ export const patchUser = async (req: Request, res: Response) => {
 					...other,
 				},
 			});
-			res.status(204);
-			res.send("Atualizado");
+			res.sendStatus(204);
 		}
 
 		await prisma.user.update({
@@ -38,10 +37,8 @@ export const patchUser = async (req: Request, res: Response) => {
 			data: { ...props },
 		});
 
-		res.status(204);
-		res.send("Atualizado");
+		res.sendStatus(204);
 	} catch (err) {
-		res.status(500);
-		res.send({ error: err });
+		res.sendStatus(500);
 	}
 };
