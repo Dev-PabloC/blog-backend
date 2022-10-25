@@ -1,27 +1,16 @@
 import { prisma } from "../../database/prismaconnection";
 import { Request, Response } from "express";
-import jwt from "jsonwebtoken";
 
 export const getAllUsers = async (req: Request, res: Response) => {
 	try {
-		const result = await prisma.user.findMany({
-			select: {
-				id: true,
-				email: true,
-				username: true,
-				posts: true,
-				info: true,
-			},
-		});
+		const result = await prisma.user.findMany({});
 
 		if (result) {
-			res.json(result);
-			res.sendStatus(200);
+			res.status(200).json(result);
 		}
 
-		throw new Error("Data not found");
+		res.status(500).send({ message: "Server error" });
 	} catch (err) {
-		res.sendStatus(500);
-		throw new Error("Server error");
+		res.status(500).send({ error: err });
 	}
 };

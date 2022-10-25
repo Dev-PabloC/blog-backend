@@ -1,44 +1,18 @@
-import { hash, genSalt } from "bcrypt";
-import { prisma } from "../../database/prismaconnection";
 import { Request, Response } from "express";
-import jwt from "jsonwebtoken";
+import { prisma } from "../../database/prismaconnection";
 
-export const patchUser = async (req: Request, res: Response) => {
+export const patchUniqueUser = async (req: Request, res: Response) => {
 	try {
-		const { name } = req.params;
 		const props = req.body;
-		const authToken = req.headers.authorization;
-		const [, token]: any = authToken?.split(" ");
-
-		const { username }: any = jwt.verify(token, String(process.env.JWTKEY));
-
-		if (!props) {
-			res.sendStatus(500);
-			throw new Error("No request body");
-		}
-
-		if (props.password) {
-			const { password, ...other } = props;
-			const salt = await genSalt(20);
-			const hashpassword = await hash(password, salt);
-
-			await prisma.user.update({
-				where: { username: username },
-				data: {
-					password: hashpassword,
-					...other,
-				},
-			});
-			res.sendStatus(204);
-		}
-
+		const { name } = req.params;
 		await prisma.user.update({
 			where: { username: name },
-			data: { ...props },
+			data: {
+				...props,
+			},
 		});
-
-		res.sendStatus(204);
+		res.status(204).send({ message: "User updated" });
 	} catch (err) {
-		res.sendStatus(500);
+		res.status(500).send({ error: err });
 	}
 };

@@ -3,16 +3,17 @@ import { verify } from "jsonwebtoken";
 
 export const authTokenMiddleware = async (req: Request, res: Response, next: NextFunction) => {
 	try {
-		const authToken = req.headers.authorization;
+		const authToken = window.sessionStorage.getItem("token");
 		if (!authToken) {
-			res.send({ error: "Unauthorized" });
+			res.statusCode = 401;
+			res.send({ error: "no login" });
 		}
-		const [, token]: any = authToken?.split(" ");
 
-		verify(token, String(process.env.JWTKEY));
+		verify(String(authToken), String(process.env.JWTKEY));
 
-		return next();
+		next();
 	} catch (err) {
-		res.send({ error: "Unauthorized" });
+		res.statusCode = 403;
+		res.send({ error: err });
 	}
 };
