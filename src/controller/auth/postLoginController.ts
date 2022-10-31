@@ -14,19 +14,25 @@ export const loginController = async (req: Request, res: Response) => {
 
 		const result = await prisma.user.findFirst({ where: { email: email } });
 
+		if (!result) {
+			return res.status(500).send({ message: "Email does not exist" });
+		}
+
 		if (result && result.password === password) {
 			const token = jwt.sign(
 				{
 					userId: result.id,
 					email: result.email,
+					username: result.username,
 				},
 				String(process.env.JWTKEY),
 				{ expiresIn: "1d" },
 			);
 
-			window.sessionStorage.setItem("token", token);
-			res.redirect("/profile");
+			res.status(200);
+			res.send({ token: token });
 		}
+		return res.status(403).send("Wrong password");
 	} catch (err) {
 		res.status(500);
 		console.log(err);

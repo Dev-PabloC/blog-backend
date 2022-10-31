@@ -3,17 +3,20 @@ import { verify } from "jsonwebtoken";
 
 export const authTokenMiddleware = async (req: Request, res: Response, next: NextFunction) => {
 	try {
-		const authToken = window.sessionStorage.getItem("token");
+		const authToken: any = req.headers["authorization"];
 		if (!authToken) {
-			res.statusCode = 401;
-			res.send({ error: "no login" });
+			return res.status(401).send({ error: "no login" });
 		}
 
-		verify(String(authToken), String(process.env.JWTKEY));
+		const token = authToken.slice(7);
 
-		next();
+		verify(String(token), String(process.env.JWTKEY), (err, decoded) => {
+			if (err) {
+				return res.status(401).send({ message: "acess denied" });
+			}
+			next();
+		});
 	} catch (err) {
-		res.statusCode = 403;
-		res.send({ error: err });
+		return res.status(500).send({ error: err });
 	}
 };

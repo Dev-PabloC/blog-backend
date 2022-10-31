@@ -16,8 +16,8 @@ export const postUser = async (req: Request, res: Response) => {
 			data: UserData,
 		});
 
-		res.status(201).send("User created");
+		return res.status(201).send("User created");
 	} catch (err) {
-		res.status(500).send({ error: err });
+		return res.status(500).send({ error: err });
 	}
 };

@@ -3,14 +3,22 @@ import { Request, Response } from "express";
 
 export const getAllUsers = async (req: Request, res: Response) => {
 	try {
-		const result = await prisma.user.findMany({});
+		const result = await prisma.user.findMany({
+			select: {
+				id: true,
+				username: true,
+				email: true,
+				info: true,
+				posts: true,
+			},
+		});
 
 		if (result) {
-			res.status(200).json(result);
+			return res.status(200).json(result);
 		}
 
-		res.status(500).send({ message: "Server error" });
+		return res.status(500).send({ message: "Server error" });
 	} catch (err) {
-		res.status(500).send({ error: err });
+		return res.status(500).send({ error: err });
 	}
 };
