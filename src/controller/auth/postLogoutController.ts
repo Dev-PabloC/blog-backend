@@ -1,6 +1,7 @@
 import jwt from "jsonwebtoken";
 import { Request, Response } from "express";
 
+
 export const logoutController = async (req: Request, res: Response) => {
 	try {
 		res.status(200);

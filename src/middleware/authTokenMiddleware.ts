@@ -3,7 +3,7 @@ import { verify } from "jsonwebtoken";
 
 export const authTokenMiddleware = async (req: Request, res: Response, next: NextFunction) => {
 	try {
-		const authToken: any = req.headers["authorization"];
+		const authToken = req.headers["authorization"];
 		if (!authToken) {
 			return res.status(401).send({ error: "no login" });
 		}
