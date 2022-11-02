@@ -1,6 +1,5 @@
-import { prisma } from "../../database/prismaconnection";
 import { Request, Response } from "express";
-import jwt from "jsonwebtoken";
+import { prisma } from "../../database/prismaconnection";
 
 export const getUniqueUser = async (req: Request, res: Response) => {
 	try {
@@ -10,17 +9,20 @@ export const getUniqueUser = async (req: Request, res: Response) => {
 			where: { username: name },
 			select: {
 				id: true,
-				username: true,
 				email: true,
-				posts: true,
+				username: true,
 				info: true,
+				posts: true,
 			},
 		});
+		if (result) {
+			return res.status(200).json(result);
+		}
 
-		res.status(200);
-		res.json(result);
+		
+		return res.send({ message: "user not found" });
 	} catch (err) {
-		res.status(500);
-		res.send({ error: err });
+		
+		return res.status(500).send({ error: err });
 	}
 };

@@ -2,7 +2,11 @@
 	"name": "apollo",
 	"author": {
 		"name": "Dev-PabloC",
-		"email": "pablo.dev.carvalho@gmail.com"
+		"email": "pablo.dev.carvalho@gmail.com",
+		"url": "https://www.github.com/Dev-PabloC"
+	},
+	"repository": {
+		"url": "https://www.github.com/Dev-PabloC/apolo"
 	},
 	"version": "1.0.0",
 	"main": "./src/index.ts",

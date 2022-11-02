@@ -2,20 +2,21 @@ import { NextFunction, Request, Response } from "express";
 import { verify } from "jsonwebtoken";
 
 export const authTokenMiddleware = async (req: Request, res: Response, next: NextFunction) => {
-	const authToken = req.headers.authorization;
-	if (!authToken) {
-		res.status(401);
-		res.send("não autorizado");
-		res.redirect("/login");
-	}
-	const [, token]: any = authToken?.split(" ");
-
 	try {
-		verify(token, String(process.env.JWTKEY));
+		const authToken = req.headers["authorization"];
+		if (!authToken) {
+			return res.status(401).send({ error: "no login" });
+		}
 
-		return next();
+		const token = authToken.slice(7);
+
+		verify(String(token), String(process.env.JWTKEY), (err, decoded) => {
+			if (err) {
+				return res.status(401).send({ message: "acess denied" });
+			}
+			next();
+		});
 	} catch (err) {
-		res.status(401);
-		res.redirect("/login");
+		return res.status(500).send({ error: err });
 	}
 };

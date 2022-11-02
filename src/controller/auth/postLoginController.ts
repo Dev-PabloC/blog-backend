@@ -1,37 +1,40 @@
+import jwt from "jsonwebtoken";
 import { Request, Response } from "express";
 import { prisma } from "../../database/prismaconnection";
-import bcrypt from "bcrypt";
-import jwt from "jsonwebtoken";
 
 export const loginController = async (req: Request, res: Response) => {
 	try {
-		const { email, password } = req.body;
-		const FetchData = await prisma.user.findUnique({ where: { email: email } });
-		const result = await bcrypt.compare(password, String(FetchData?.password));
-
-		if (!FetchData) {
-			res.send("Email não está cadastrado");
+		const { email, password }: string | any = req.body;
+		if (!email) {
+			res.send({ message: "insira um email" });
+		}
+		if (!password) {
+			res.send({ message: "insira um password" });
 		}
 
-		if (result) {
+		const result = await prisma.user.findFirst({ where: { email: email } });
+
+		if (!result) {
+			return res.status(500).send({ message: "Email does not exist" });
+		}
+
+		if (result && result.password === password) {
 			const token = jwt.sign(
 				{
-					userId: FetchData?.id,
-					email: FetchData?.email,
-					username: FetchData?.username,
+					userId: result.id,
+					email: result.email,
+					username: result.username,
 				},
 				String(process.env.JWTKEY),
 				{ expiresIn: "1d" },
 			);
 
-			res.send({ message: "Logado", token: token });
-			res.redirect("/profile");
+			res.status(200);
+			res.send({ token: token });
 		}
-
-		res.status(401);
-		res.send("Senha incorreta");
+		return res.status(403).send("Wrong password");
 	} catch (err) {
 		res.status(500);
-		res.send({ error: err });
+		console.log(err);
 	}
 };

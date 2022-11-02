@@ -1,30 +1,34 @@
 import { prisma } from "../../database/prismaconnection";
-import { genSalt, hash } from "bcrypt";
+
 import { Request, Response } from "express";
 
 export const postUser = async (req: Request, res: Response) => {
 	try {
 		let { username, email, password } = req.body;
 
-		const salt = await genSalt(20);
+		if (!username) {
+			return res.status(403).send({ message: "Send a username" });
+		}
+		if (!email) {
+			return res.status(403).send({ message: "Send a email" });
+		}
 
-		const hashPassword = await hash(password, salt);
+		if (!password) {
+			return res.status(403).send({ message: "Send a password" });
+		}
 
 		const UserData = {
 			username: username,
 			email: email,
-			password: hashPassword,
+			password: password,
 		};
 
 		await prisma.user.create({
 			data: UserData,
 		});
 
-		res.status(201);
-		res.send();
-		res.redirect("/login");
+		return res.status(201).send("User created");
 	} catch (err) {
-		res.status(500);
-		res.send({ error: err });
+		return res.status(500).send({ error: err });
 	}
 };
