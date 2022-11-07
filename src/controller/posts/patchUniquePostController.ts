@@ -26,12 +26,13 @@ export const patchUniquePost = async (req: Request, res: Response) => {
 					data: { ...props },
 				})
 				.then(() => {
-					return res.status(204).send({ message: "post updated" });
+					return res.status(200).send({ message: "post updated" });
 				})
 				.catch((err) => {
 					return res.status(500).send({ error: err });
 				});
 		}
+		return res.status(401).send({ message: "acess denied" });
 	} catch (err) {
 		return res.status(500).send({ error: err });
 	}

@@ -18,7 +18,7 @@ export const patchUniqueUser = async (req: Request, res: Response) => {
 					...props,
 				},
 			});
-			return res.status(204).send({ message: "User updated" });
+			return res.status(200).send({ message: "User updated" });
 		}
 
 		return res.status(401).send({ message: "acess denied" });

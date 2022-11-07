@@ -7,14 +7,14 @@ export const postUser = async (req: Request, res: Response) => {
 		let { username, email, password } = req.body;
 
 		if (!username) {
-			return res.status(403).send({ message: "Send a username" });
+			return res.status(400).send({ message: "Send a username" });
 		}
 		if (!email) {
-			return res.status(403).send({ message: "Send a email" });
+			return res.status(400).send({ message: "Send a email" });
 		}
 
 		if (!password) {
-			return res.status(403).send({ message: "Send a password" });
+			return res.status(400).send({ message: "Send a password" });
 		}
 
 		const UserData = {

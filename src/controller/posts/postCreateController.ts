@@ -10,10 +10,10 @@ export const postCreate = async (req: Request, res: Response) => {
 		const token = authToken?.slice(7);
 
 		if (!title) {
-			return res.status(403).send({ message: "Send a title" });
+			return res.status(400).send({ message: "Send a title" });
 		}
 		if (!content) {
-			return res.status(403).send({ message: "Send a content" });
+			return res.status(400).send({ message: "Send a content" });
 		}
 
 		const { email } = (await getDataTokenPromise(String(token))) as { email: string };
