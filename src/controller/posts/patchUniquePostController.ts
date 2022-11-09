@@ -32,6 +32,7 @@ export const patchUniquePost = async (req: Request, res: Response) => {
 					return res.status(500).send({ error: err });
 				});
 		}
+		return res.status(401).send({ message: "acess denied" });
 	} catch (err) {
 		return res.status(500).send({ error: err });
 	}
