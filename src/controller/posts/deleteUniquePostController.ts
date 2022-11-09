@@ -18,7 +18,7 @@ export const deleteUniquePost = async (req: Request, res: Response) => {
 			await prisma.post
 				.delete({ where: { id: _id } })
 				.then(() => {
-					return res.status(204).send({ message: "Post deleted" });
+					return res.status(200).send({ message: "Post deleted" });
 				})
 				.catch((err) => {
 					return res.status(500).send({ error: err });

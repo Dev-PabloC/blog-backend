@@ -1,5 +1,4 @@
 import { verify } from "jsonwebtoken";
-import { Request } from "express";
 
 export async function getDataTokenPromise(token: string) {
 	const data = verify(String(token), String(process.env.JWTKEY));

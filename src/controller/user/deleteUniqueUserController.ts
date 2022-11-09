@@ -14,7 +14,7 @@ export const deleteUniqueUser = async (req: Request, res: Response) => {
 			await prisma.user
 				.delete({ where: { username: name } })
 				.then(() => {
-					return res.status(204).send({ message: "User deleted" });
+					return res.status(200).send({ message: "User deleted" });
 				})
 				.catch((err) => {
 					return res.status(500).send({ message: "Esse user já foi deletado" });

@@ -19,7 +19,7 @@ export const patchInfo = async (req: Request, res: Response) => {
 			await prisma.info
 				.update({ where: { id: _id }, data: { ...props } })
 				.then(() => {
-					return res.status(204).send({ message: "info updated" });
+					return res.status(200).send({ message: "info updated" });
 				})
 				.catch((err) => {
 					return res.status(500).send({ error: err });

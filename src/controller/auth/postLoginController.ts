@@ -6,10 +6,10 @@ export const loginController = async (req: Request, res: Response) => {
 	try {
 		const { email, password }: string | any = req.body;
 		if (!email) {
-			return res.send({ message: "insira um email" });
+			return res.status(400).send({ message: "insira um email" });
 		}
 		if (!password) {
-			return res.send({ message: "insira um password" });
+			return res.status(400).send({ message: "insira um password" });
 		}
 
 		const result = await prisma.user.findFirst({ where: { email: email } });
