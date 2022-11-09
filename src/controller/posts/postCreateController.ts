@@ -21,7 +21,11 @@ export const postCreate = async (req: Request, res: Response) => {
 		await prisma.user
 			.update({
 				where: { email: email },
-				data: { posts: { create: { title: title, content: content } } },
+				data: {
+					posts: {
+						create: { title: title, content: content },
+					},
+				},
 			})
 			.then(() => {
 				return res.status(201).send({ message: "post created" });

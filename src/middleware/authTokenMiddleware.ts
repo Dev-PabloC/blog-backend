@@ -3,12 +3,10 @@ import { verify } from "jsonwebtoken";
 
 export const authTokenMiddleware = async (req: Request, res: Response, next: NextFunction) => {
 	try {
-		const authToken = req.headers["authorization"];
-		if (!authToken) {
+		const token = req.headers["authorization"]?.slice(7)
+		if (!token) {
 			return res.status(401).send({ error: "no login" });
 		}
-
-		const token = authToken.slice(7);
 
 		verify(String(token), String(process.env.JWTKEY), (err, decoded) => {
 			if (err) {

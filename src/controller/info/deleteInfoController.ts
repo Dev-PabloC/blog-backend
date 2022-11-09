@@ -18,7 +18,7 @@ export const deleteInfo = async (req: Request, res: Response) => {
 			await prisma.info
 				.delete({ where: { id: _id } })
 				.then(() => {
-					return res.status(204).send({ message: "sinfo deleted" });
+					return res.status(200).send({ message: "info deleted" });
 				})
 				.catch((err) => {
 					return res.status(500).send({ message: err });
