@@ -1,10 +1,11 @@
-import { Request, Response } from "express";
+import { context } from "../../utils/context";
+import { IUpdateUserData } from "../../utils/user";
 import { prisma } from "../../database/prismaconnection";
 import { getDataTokenPromise } from "../../utils/decodedPromise";
 
-export const patchUniqueUser = async (req: Request, res: Response) => {
+export const patchUniqueUser = async ({ req, res }: context) => {
 	try {
-		const props = req.body;
+		const props: IUpdateUserData = req.body;
 		const { name } = req.params;
 		const authToken = req.headers["authorization"];
 		const token = authToken?.slice(7);

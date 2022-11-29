@@ -1,8 +1,8 @@
 import jwt from "jsonwebtoken";
-import { Request, Response } from "express";
+import { context } from "../../utils/context";
 import { prisma } from "../../database/prismaconnection";
 
-export const loginController = async (req: Request, res: Response) => {
+export const loginController = async ({ req, res }: context) => {
 	try {
 		const { email, password }: string | any = req.body;
 		if (!email) {

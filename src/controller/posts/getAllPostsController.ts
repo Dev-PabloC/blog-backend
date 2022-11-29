@@ -1,7 +1,7 @@
 import { prisma } from "../../database/prismaconnection";
-import { Request, Response } from "express";
+import { context } from "../../utils/context";
 
-export const getAllPostUser = async (req: Request, res: Response) => {
+export const getAllPostUser = async ({ req, res }: context) => {
 	try {
 		const { _id } = req.params;
 		const result = await prisma.post.findMany({ where: { userId: _id } });

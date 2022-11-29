@@ -1,7 +1,7 @@
-import { Request, Response } from "express";
+import { context } from "../../utils/context";
 import { prisma } from "../../database/prismaconnection";
 
-export const getUniqueUser = async (req: Request, res: Response) => {
+export const getUniqueUser = async ({ req, res }: context) => {
 	try {
 		const { name } = req.params;
 
@@ -19,10 +19,8 @@ export const getUniqueUser = async (req: Request, res: Response) => {
 			return res.status(200).json(result);
 		}
 
-		
 		return res.send({ message: "user not found" });
 	} catch (err) {
-		
 		return res.status(500).send({ error: err });
 	}
 };
