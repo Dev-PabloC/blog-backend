@@ -1,6 +1,5 @@
 import { Request, Response } from "express";
 import { prisma } from "../../database/prismaconnection";
-import { verify } from "jsonwebtoken";
 import { getDataTokenPromise } from "../../utils/decodedPromise";
 
 export const patchUniqueUser = async (req: Request, res: Response) => {
@@ -23,6 +22,7 @@ export const patchUniqueUser = async (req: Request, res: Response) => {
 
 		return res.status(401).send({ message: "acess denied" });
 	} catch (err) {
+		console.log(err);
 		return res.status(500).send({ error: err });
 	}
 };

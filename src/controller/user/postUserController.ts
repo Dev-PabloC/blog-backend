@@ -1,25 +1,18 @@
 import { prisma } from "../../database/prismaconnection";
-
 import { Request, Response } from "express";
+
+interface PostUserData {
+	username: string;
+	email: string;
+	password: string;
+}
 
 export const postUser = async (req: Request, res: Response) => {
 	try {
-		let { username, email, password } = req.body;
+		let { username, email, password } = req.body as PostUserData;
 
-<<<<<<< HEAD
 		if (!username || !email || !password) {
 			return res.status(400).send({ message: "Send a data correct" });
-=======
-		if (!username) {
-			return res.status(400).send({ message: "Send a username" });
-		}
-		if (!email) {
-			return res.status(400).send({ message: "Send a email" });
-		}
-
-		if (!password) {
-			return res.status(400).send({ message: "Send a password" });
->>>>>>> a071d477a6051256d088d8601363af058fbba178
 		}
 
 		const UserData = {
@@ -28,11 +21,22 @@ export const postUser = async (req: Request, res: Response) => {
 			password: password,
 		};
 
-		await prisma.user.create({
-			data: UserData,
-		});
-
-		return res.status(201).send("User created");
+		await prisma.user
+			.create({
+				data: UserData,
+			})
+			.then(() => {
+				return res.status(201).send("User created");
+			})
+			.catch((err) => {
+				if (err.message.includes("Unique constraint failed on the constraint: `users_username_key`")) {
+					return res.status(400).send({ message: "username already exist" });
+				} else if (err.message.includes("Unique constraint failed on the constraint: `users_email_key`")) {
+					return res.status(400).send({ message: "email already exist" });
+				} else {
+					return res.status(500).send(err.message);
+				}
+			});
 	} catch (err) {
 		return res.status(500).send({ error: err });
 	}

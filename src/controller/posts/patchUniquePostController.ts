@@ -1,6 +1,5 @@
 import { prisma } from "../../database/prismaconnection";
 import { Request, Response } from "express";
-import { verify } from "jsonwebtoken";
 import { getDataTokenPromise } from "../../utils/decodedPromise";
 
 export const patchUniquePost = async (req: Request, res: Response) => {
@@ -8,8 +7,7 @@ export const patchUniquePost = async (req: Request, res: Response) => {
 		const { _id } = req.params;
 		const props = req.body;
 
-		const authToken = req.headers["authorization"];
-		const token = authToken?.slice(7);
+		const { token } = req.cookies;
 
 		const { userId } = (await getDataTokenPromise(String(token))) as { userId: string };
 

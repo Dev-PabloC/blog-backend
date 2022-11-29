@@ -19,6 +19,7 @@ export const getAllUsers = async (req: Request, res: Response) => {
 
 		return res.status(500).send({ message: "Server error" });
 	} catch (err) {
+		console.log(err);
 		return res.status(500).send({ error: err });
 	}
 };

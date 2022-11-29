@@ -3,7 +3,8 @@ import { verify } from "jsonwebtoken";
 
 export const authTokenMiddleware = async (req: Request, res: Response, next: NextFunction) => {
 	try {
-		const token = req.headers["authorization"]?.slice(7)
+		const { token } = req.cookies;
+
 		if (!token) {
 			return res.status(401).send({ error: "no login" });
 		}
@@ -15,6 +16,7 @@ export const authTokenMiddleware = async (req: Request, res: Response, next: Nex
 			next();
 		});
 	} catch (err) {
+		console.log(err);
 		return res.status(500).send({ error: err });
 	}
 };

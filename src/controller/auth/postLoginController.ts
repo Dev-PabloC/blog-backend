@@ -28,8 +28,8 @@ export const loginController = async (req: Request, res: Response) => {
 				String(process.env.JWTKEY),
 				{ expiresIn: "1d" },
 			);
-
-			return res.status(200).send({ token: token });
+			res.cookie("token", token, { maxAge: 1000 * 60 * 60, secure: true, signed: true });
+			return res.status(200).send("Login:true");
 		}
 		return res.status(403).send("Wrong password");
 	} catch (err) {
