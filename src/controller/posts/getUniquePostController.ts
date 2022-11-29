@@ -1,7 +1,7 @@
 import { prisma } from "../../database/prismaconnection";
-import { Request, Response } from "express";
+import { context } from "../../utils/context";
 
-export const getUniquePost = async (req: Request, res: Response) => {
+export const getUniquePost = async ({ req, res }: context) => {
 	try {
 		const { _id } = req.params;
 

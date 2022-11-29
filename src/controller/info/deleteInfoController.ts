@@ -1,8 +1,8 @@
 import { prisma } from "../../database/prismaconnection";
-import { Request, Response } from "express";
+import { context } from "../../utils/context";
 import { getDataTokenPromise } from "../../utils/decodedPromise";
 
-export const deleteInfo = async (req: Request, res: Response) => {
+export const deleteInfo = async ({ req, res }: context) => {
 	try {
 		const { _id } = req.params;
 

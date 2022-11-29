@@ -1,8 +1,8 @@
 import { prisma } from "../../database/prismaconnection";
-import { Request, Response } from "express";
+import { context } from "../../utils/context";
 import { getDataTokenPromise } from "../../utils/decodedPromise";
 
-export const postCreate = async (req: Request, res: Response) => {
+export const postCreate = async ({ req, res }: context) => {
 	try {
 		const { title, content } = req.body;
 		const { token } = req.cookies;

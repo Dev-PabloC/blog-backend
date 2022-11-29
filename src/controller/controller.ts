@@ -2,7 +2,7 @@
 import { postUser } from "./user/postUserController";
 import { patchUniqueUser } from "./user/patchUniqueUserController";
 import { getUniqueUser } from "./user/getUniqueUserController";
-import { getAllUsers } from "./user/getAllUserController";
+import { getAllUsers, getAllUsersByLetter } from "./user/getAllUserController";
 import { deleteUniqueUser } from "./user/deleteUniqueUserController";
 
 //postControllers
@@ -29,6 +29,7 @@ export const userControllers = {
 	patchUniqueUser,
 	getUniqueUser,
 	getAllUsers,
+	getAllUsersByLetter,
 	deleteUniqueUser,
 };
 

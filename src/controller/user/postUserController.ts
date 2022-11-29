@@ -1,15 +1,10 @@
 import { prisma } from "../../database/prismaconnection";
-import { Request, Response } from "express";
+import { context } from "../../utils/context";
+import { ICreateUserData } from "../../utils/user";
 
-interface PostUserData {
-	username: string;
-	email: string;
-	password: string;
-}
-
-export const postUser = async (req: Request, res: Response) => {
+export const postUser = async ({ req, res }: context) => {
 	try {
-		let { username, email, password } = req.body as PostUserData;
+		let { username, email, password }: ICreateUserData = req.body;
 
 		if (!username || !email || !password) {
 			return res.status(400).send({ message: "Send a data correct" });
