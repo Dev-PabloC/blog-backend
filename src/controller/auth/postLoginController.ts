@@ -1,8 +1,9 @@
+import bcrypt from 'bcrypt';
 import jwt from "jsonwebtoken";
-import { context } from "../../utils/context";
+import { Request, Response } from "express"
 import { prisma } from "../../database/prismaconnection";
 
-export const loginController = async ({ req, res }: context) => {
+export const loginController = async (req: Request, res: Response) => {
 	try {
 		const { email, password }: string | any = req.body;
 		if (!email) {
@@ -17,8 +18,9 @@ export const loginController = async ({ req, res }: context) => {
 		if (!result) {
 			return res.status(500).send({ message: "Email does not exist" });
 		}
+		const validPassword = await bcrypt.compare(password, result.password)
 
-		if (result && result.password === password) {
+		if (result && validPassword) {
 			const token = jwt.sign(
 				{
 					userId: result.id,
@@ -28,11 +30,12 @@ export const loginController = async ({ req, res }: context) => {
 				String(process.env.JWTKEY),
 				{ expiresIn: "1d" },
 			);
-			res.cookie("token", token, { maxAge: 1000 * 60 * 60, secure: true, signed: true });
+			res.cookie("token", token, { maxAge: 1000 * 60 * 60, secure: true, signed: false });
 			return res.status(200).send("Login:true");
 		}
 		return res.status(403).send("Wrong password");
 	} catch (err) {
+		console.error(err)
 		return res.status(500).send(err);
 	}
 };
