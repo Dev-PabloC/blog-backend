@@ -3,6 +3,6 @@ import { createServer } from "http";
 import dotenv from "dotenv";
 dotenv.config();
 
-createServer(app).listen(process.env.PORT, () => {
+createServer(app).listen(4000, () => {
 	console.log("Server ligando");
 });

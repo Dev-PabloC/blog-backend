@@ -1,12 +1,11 @@
 import { prisma } from "../../database/prismaconnection";
-import { context } from "../../utils/context";
+import { Request, Response } from "express"
 import { getDataTokenPromise } from "../../utils/decodedPromise";
 
-export const deleteUniqueUser = async ({ req, res }: context) => {
+export const deleteUniqueUser = async (req: Request, res: Response) => {
 	try {
 		const { name } = req.params;
-		const authToken = req.headers["authorization"];
-		const token = authToken?.slice(7);
+		const { token } = req.cookies
 
 		const { username } = (await getDataTokenPromise(String(token))) as { username: string };
 

@@ -1,8 +1,8 @@
 import { prisma } from "../../database/prismaconnection";
-import { context } from "../../utils/context";
+import { Request, Response } from "express"
 import { getDataTokenPromise } from "../../utils/decodedPromise";
 
-export const createInfo = async ({ req, res }: context) => {
+export const createInfo = async (req: Request, res: Response) => {
 	try {
 		const props = req.body;
 

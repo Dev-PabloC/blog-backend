@@ -1,8 +1,8 @@
 import { prisma } from "../../database/prismaconnection";
-import { context } from "../../utils/context";
+import { Request, Response } from "express"
 import { getDataTokenPromise } from "../../utils/decodedPromise";
 
-export const patchUniquePost = async ({ req, res }: context) => {
+export const patchUniquePost = async (req: Request, res: Response) => {
 	try {
 		const { _id } = req.params;
 		const props = req.body;

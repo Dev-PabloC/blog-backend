@@ -1,7 +1,7 @@
 import { prisma } from "../../database/prismaconnection";
-import { context } from "../../utils/context";
+import { Request, Response } from "express"
 
-export const getAllUsers = async ({ req, res }: context) => {
+export const getAllUsers = async (req: Request, res: Response) => {
 	try {
 		const result = await prisma.user.findMany({
 			select: {
@@ -10,6 +10,7 @@ export const getAllUsers = async ({ req, res }: context) => {
 				email: true,
 				info: true,
 				posts: true,
+				password: true
 			},
 		});
 
@@ -24,7 +25,7 @@ export const getAllUsers = async ({ req, res }: context) => {
 	}
 };
 
-export const getAllUsersByLetter = async ({ req, res }: context) => {
+export const getAllUsersByLetter = async (req: Request, res: Response) => {
 	try {
 		const { search } = req.body as { search: string };
 		const result = await prisma.user.findMany({

@@ -1,8 +1,8 @@
 import { prisma } from "../../database/prismaconnection";
-import { context } from "../../utils/context";
+import { Request, Response } from "express"
 import { ICreateUserData } from "../../utils/user";
 
-export const postUser = async ({ req, res }: context) => {
+export const postUser = async (req: Request, res: Response) => {
 	try {
 		let { username, email, password }: ICreateUserData = req.body;
 
@@ -10,18 +10,17 @@ export const postUser = async ({ req, res }: context) => {
 			return res.status(400).send({ message: "Send a data correct" });
 		}
 
-		const UserData = {
-			username: username,
-			email: email,
-			password: password,
-		};
+		;
 
-		await prisma.user
-			.create({
-				data: UserData,
-			})
+		await prisma.user.create({
+			data: {
+				username: username,
+				email: email,
+				password: password
+			}
+		})
 			.then(() => {
-				return res.status(201).send("User created");
+				return res.status(201).send({ message: "User created" });
 			})
 			.catch((err) => {
 				if (err.message.includes("Unique constraint failed on the constraint: `users_username_key`")) {
@@ -29,10 +28,11 @@ export const postUser = async ({ req, res }: context) => {
 				} else if (err.message.includes("Unique constraint failed on the constraint: `users_email_key`")) {
 					return res.status(400).send({ message: "email already exist" });
 				} else {
-					return res.status(500).send(err.message);
+					return res.status(500).send({ error: err.message });
 				}
 			});
 	} catch (err) {
+		console.error(err)
 		return res.status(500).send({ error: err });
 	}
 };

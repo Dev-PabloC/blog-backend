@@ -1,14 +1,13 @@
-import { context } from "../../utils/context";
+import { Request, Response } from "express"
 import { IUpdateUserData } from "../../utils/user";
 import { prisma } from "../../database/prismaconnection";
 import { getDataTokenPromise } from "../../utils/decodedPromise";
 
-export const patchUniqueUser = async ({ req, res }: context) => {
+export const patchUniqueUser = async (req: Request, res: Response) => {
 	try {
 		const props: IUpdateUserData = req.body;
 		const { name } = req.params;
-		const authToken = req.headers["authorization"];
-		const token = authToken?.slice(7);
+		const { token } = req.cookies
 
 		const { username } = (await getDataTokenPromise(String(token))) as { username: string };
 		if (username === name) {

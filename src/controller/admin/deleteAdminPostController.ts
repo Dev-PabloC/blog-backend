@@ -1,7 +1,7 @@
-import { context } from "../../utils/context";
+import { Request, Response } from "express"
 import { prisma } from "../../database/prismaconnection";
 
-export const deletePostByAdmin = async ({ req, res }: context) => {
+export const deletePostByAdmin = async (req: Request, res: Response) => {
 	try {
 		const { _id } = req.params;
 
