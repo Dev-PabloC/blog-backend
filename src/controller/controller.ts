@@ -1,5 +1,4 @@
 //userControllers
-import { postUser } from "./user/postUserController";
 import { patchUniqueUser } from "./user/patchUniqueUserController";
 import { getUniqueUser } from "./user/getUniqueUserController";
 import { getAllUsers, getAllUsersByLetter } from "./user/getAllUserController";
@@ -19,13 +18,13 @@ import { deleteInfo } from "./info/deleteInfoController";
 
 //authControllers
 import { loginController } from "./auth/postLoginController";
+import { registerController } from "./auth/postRegisterController"
 
 //adminControllers
 import { deleteUserByAdmin } from "./admin/deleteAdminUserController";
 import { deletePostByAdmin } from "./admin/deleteAdminPostController";
 
 export const userControllers = {
-	postUser,
 	patchUniqueUser,
 	getUniqueUser,
 	getAllUsers,
@@ -49,6 +48,7 @@ export const infoControllers = {
 
 export const authControllers = {
 	loginController,
+	registerController
 };
 
 export const adminControllers = {
