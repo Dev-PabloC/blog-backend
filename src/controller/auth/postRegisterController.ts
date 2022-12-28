@@ -12,7 +12,7 @@ export const registerController = async (req: Request, res: Response) => {
 
         ;
 
-        await prisma.user.create({
+        prisma.user.create({
             data: {
                 username: username,
                 email: email,

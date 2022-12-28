@@ -14,7 +14,7 @@ export const patchInfo = async (req: Request, res: Response) => {
 		const result = await prisma.info.findFirst({ where: { userId: userId } });
 
 		if (result?.id === _id) {
-			await prisma.info
+			prisma.info
 				.update({ where: { id: _id }, data: { ...props } })
 				.then(() => {
 					return res.status(200).send({ message: "info updated" });

@@ -1,11 +1,11 @@
-export type ICreateUserData = {
+export interface ICreateUserData {
 	username: string;
 	email: string;
 	password: string;
-};
+}
 
-export type IUpdateUserData = {
+export interface IUpdateUserData {
 	username?: string;
 	email?: string;
 	password?: string;
-};
+}

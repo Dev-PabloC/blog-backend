@@ -18,7 +18,7 @@ export const patchUniquePost = async (req: Request, res: Response) => {
 		});
 
 		if (result?.id === _id) {
-			await prisma.post
+			prisma.post
 				.update({
 					where: { id: _id },
 					data: { ...props },

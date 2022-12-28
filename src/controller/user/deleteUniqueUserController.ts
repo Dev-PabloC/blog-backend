@@ -10,7 +10,7 @@ export const deleteUniqueUser = async (req: Request, res: Response) => {
 		const { username } = (await getDataTokenPromise(String(token))) as { username: string };
 
 		if (username === name) {
-			await prisma.user
+			prisma.user
 				.delete({ where: { username: name } })
 				.then(() => {
 					return res.status(200).send({ message: "User deleted" });

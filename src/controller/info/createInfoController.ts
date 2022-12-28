@@ -10,7 +10,7 @@ export const createInfo = async (req: Request, res: Response) => {
 
 		const { email } = (await getDataTokenPromise(String(token))) as { email: string };
 		if (email) {
-			await prisma.user
+			prisma.user
 				.update({ where: { email: email }, data: { info: { create: { ...props } } } })
 				.then(() => {
 					return res.status(201).send({ message: "Info created" });

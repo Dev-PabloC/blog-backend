@@ -5,7 +5,7 @@ export const deletePostByAdmin = async (req: Request, res: Response) => {
 	try {
 		const { _id } = req.params;
 
-		await prisma.post
+		prisma.post
 			.delete({
 				where: {
 					id: _id,

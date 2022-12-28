@@ -5,7 +5,7 @@ export const deleteUserByAdmin = async (req:Request,res:Response) => {
 	try {
 		const { name } = req.params;
 
-		await prisma.user
+		prisma.user
 			.delete({
 				where: {
 					username: name,

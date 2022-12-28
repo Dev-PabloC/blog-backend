@@ -13,7 +13,7 @@ export const deleteInfo = async (req: Request, res: Response) => {
 		const result = await prisma.info.findFirst({ where: { userId: userId } });
 
 		if (result?.id === _id) {
-			await prisma.info
+			prisma.info
 				.delete({ where: { id: _id } })
 				.then(() => {
 					return res.status(200).send({ message: "info deleted" });

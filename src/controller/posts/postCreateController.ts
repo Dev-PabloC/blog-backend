@@ -16,7 +16,7 @@ export const postCreate = async (req: Request, res: Response) => {
 
 		const { email } = (await getDataTokenPromise(String(token))) as { email: string };
 
-		await prisma.user
+		prisma.user
 			.update({
 				where: { email: email },
 				data: {

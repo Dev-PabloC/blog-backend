@@ -13,7 +13,7 @@ export const deleteUniquePost = async (req: Request, res: Response) => {
 		const result = await prisma.post.findFirst({ where: { userId: userId } });
 
 		if (result?.id === _id) {
-			await prisma.post
+			prisma.post
 				.delete({ where: { id: _id } })
 				.then(() => {
 					return res.status(200).send({ message: "Post deleted" });
