@@ -16,7 +16,7 @@ export const createInfo = async (req: Request, res: Response) => {
 					return res.status(201).send({ message: "Info created" });
 				})
 				.catch((err) => {
-					return res.status(500).send({ error: err });
+					return res.status(400).send({ error: err });
 				});
 		}
 

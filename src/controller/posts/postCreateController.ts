@@ -29,7 +29,7 @@ export const postCreate = async (req: Request, res: Response) => {
 				return res.status(201).send({ message: "post created" });
 			})
 			.catch((err) => {
-				return res.status(500).send({ message: `error: ${err}` });
+				return res.status(400).send({ message: `error: ${err}` });
 			});
 	} catch (err) {
 		return res.status(500).send({ error: err });

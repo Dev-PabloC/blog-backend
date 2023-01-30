@@ -30,10 +30,13 @@ export const loginController = async (req: Request, res: Response) => {
 				String(process.env.JWTKEY),
 				{ expiresIn: "1d" },
 			);
-			res.cookie("token", token, { maxAge: 1000 * 60 * 60, secure: true, signed: false });
-			return res.status(200).send("Login:true");
+
+			return res.status(200).send({
+				Message: "Login:true",
+				Token: token
+			});
 		}
-		return res.status(403).send("Wrong password");
+		return res.status(400).send("Wrong password");
 	} catch (err) {
 		console.error(err)
 		return res.status(500).send(err);

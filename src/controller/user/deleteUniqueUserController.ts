@@ -16,7 +16,7 @@ export const deleteUniqueUser = async (req: Request, res: Response) => {
 					return res.status(200).send({ message: "User deleted" });
 				})
 				.catch((err) => {
-					return res.status(500).send({ message: "Esse user já foi deletado" });
+					return res.status(400).send({ message: "Esse user já foi deletado" });
 				});
 		} else {
 			return res.status(401).send({ message: "Acess denied" });

@@ -3,7 +3,7 @@ import { verify } from "jsonwebtoken";
 
 export const authTokenMiddleware = async (req: Request, res: Response, next: NextFunction) => {
 	try {
-		const { token } = req.cookies;
+		const token = req.headers["authorization"];
 
 		if (!token) {
 			return res.status(401).send({ error: "no login" });

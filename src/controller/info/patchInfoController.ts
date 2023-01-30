@@ -20,7 +20,7 @@ export const patchInfo = async (req: Request, res: Response) => {
 					return res.status(200).send({ message: "info updated" });
 				})
 				.catch((err) => {
-					return res.status(500).send({ error: err });
+					return res.status(400).send({ error: err });
 				});
 		}
 

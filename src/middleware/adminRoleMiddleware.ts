@@ -4,7 +4,7 @@ import { getDataTokenPromise } from "../utils/decodedPromise";
 
 export const adminRoleMiddleware = async (req: Request, res: Response, next: NextFunction) => {
 	try {
-		const { token } = req.cookies;
+		const token = req.headers["authorization"];
 		if (!token) {
 			return res.status(400).send("no token");
 		}

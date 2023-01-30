@@ -19,7 +19,7 @@ export const deleteInfo = async (req: Request, res: Response) => {
 					return res.status(200).send({ message: "info deleted" });
 				})
 				.catch((err) => {
-					return res.status(500).send({ message: err });
+					return res.status(400).send({ message: err });
 				});
 		}
 
